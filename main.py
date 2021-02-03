@@ -1,6 +1,12 @@
-from binance.client import Client
-import json 
+import json
+import logging
+from logging.config import fileConfig
+from BinanceRestAPI import BinanceRestAPI
 
+
+fileConfig('logging_config.ini')
+logger = logging.getLogger()
+logger.info('Starting %s', 'MoonBot')
 
 
 with open('config-binance.json') as json_data:
@@ -8,4 +14,7 @@ with open('config-binance.json') as json_data:
   json_data.close()
 
 
-client = Client(api_config['api_key'], api_config['api_secret'])
+binanceRestAPI =  BinanceRestAPI()
+
+logger.info('asset in account: %s', binanceRestAPI.getBalance("XVG"))
+
