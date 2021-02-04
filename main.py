@@ -14,3 +14,8 @@ with open('config-binance.json') as json_data:
   api_config = json.load(json_data)
   json_data.close()
 
+
+
+if __name__ == "__main__":
+  asset = sys.stdin.readline()
+  asset = str(asset).upper().replace('\n', '')

@@ -44,3 +44,6 @@ class BinanceRestAPI:
   """
   def cancel_order(self, orderID):
     return "Not implemented"
+
+  def get_balance_free_btc(self):
+    return self.get_balance("BTC")['free']
