@@ -20,13 +20,27 @@ class BinanceRestAPI:
   """
   Get balance of a crypto
   """
-  def getBalance(self, symbolCrypto):
+  def get_balance(self, symbolCrypto):
     balance = self.client.get_asset_balance(asset=symbolCrypto)
     self.logger.info("GET / balance: %s",balance)
     return balance
   """
   Get balance of all crypto in account
   """
-  def getAccount(self):
+  def get_account(self):
     return self.client.get_account()
 
+  def make_order_sell_allin(self, price):
+    return "Not implemented"
+
+  def make_order_buy_allin(self, price):
+    return "Not implemented"
+
+  def make_order_take_profit_allin(self, multiplierTakeProfit):
+    return "Not implemented"
+
+  """
+  use to cancel take profit
+  """
+  def cancel_order(self, orderID):
+    return "Not implemented"

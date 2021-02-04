@@ -16,5 +16,5 @@ with open('config-binance.json') as json_data:
 
 
 binanceRestAPI =  BinanceRestAPI()
-logger.info('asset in account: %s', binanceRestAPI.getBalance("XVG"))
+logger.info('asset in account: %s', binanceRestAPI.get_balance("XVG"))
 
