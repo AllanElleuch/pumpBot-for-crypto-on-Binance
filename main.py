@@ -8,7 +8,7 @@ from Logger import getLogger
 logger = getLogger("MAIN")
 
 
-logger.info('Starting %s at %s', 'MoonBot', datetime.now())
+logger.info('Starting %s', 'MoonBot')
 
 with open('config-binance.json') as json_data:
   api_config = json.load(json_data)
