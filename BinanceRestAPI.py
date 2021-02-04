@@ -30,20 +30,45 @@ class BinanceRestAPI:
   def get_account(self):
     return self.client.get_account()
 
-  def make_order_sell_allin(self, price):
-    return "Not implemented"
+  def make_market_order_buy(self,pairCrypto,quantityInBTC):
+    return self.client.create_order(
+        symbol=pairCrypto,
+        side=Client.SIDE_BUY,
+        type=Client.ORDER_TYPE_MARKET,
+        quoteOrderQty=quantityInBTC)
+  def make_market_order_sell(self,pairCrypto,quantityInBTC):
+        return self.client.create_order(
+        symbol=pairCrypto,
+        side=Client.SIDE_SELL,
+        type=Client.ORDER_TYPE_MARKET,
+        quantity=quantityInBTC)
 
-  def make_order_buy_allin(self, price):
-    return "Not implemented"
+  def make_order_sell_allin(self, symbolToSell, PairToSell):
+    amountInBTC = self.get_balance(symbolToSell)
+    return self.make_order_sell(PairToSell,amountInBTC)
 
-  def make_order_take_profit_allin(self, multiplierTakeProfit):
-    return "Not implemented"
+  def make_order_buy_allin(self, pairCrypto):
+    amountInBTC = self.get_balance_free_btc()
+    return self.make_market_order_buy(pairCrypto,amountInBTC)
+
+  def make_order_take_profit_allin(self, symbolToTakeProfit,PairToTakeProfit):
+    amountInBTC = self.get_balance(symbolToTakeProfit)
+    return self.make_order_sell(PairToTakeProfit,amountInBTC)
+
 
   """
   use to cancel take profit
   """
-  def cancel_order(self, orderID):
-    return "Not implemented"
+  def cancel_order(self, pairCrypto, orderToCancel):
+    try:
+      self.client.cancel_order(symbol=pairCrypto, orderId=orderToCancel['orderId'], )
+    except:
+      self.logger.error("Fail to undo order")
 
   def get_balance_free_btc(self):
     return self.get_balance("BTC")['free']
+
+
+if __name__ == "__main__":
+  binanceRestAPI =  BinanceRestAPI()
+  binanceRestAPI.logger.error("test")
