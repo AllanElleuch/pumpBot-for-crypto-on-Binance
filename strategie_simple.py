@@ -119,7 +119,7 @@ def simple_strategy(client: BinanceRestAPI,symbolTargetCoin:str, quantityInBTCTo
   orderSell = client.make_order_sell_allin(symbolToSell=symbolTargetCoin, pairToSell=pairInBTCOfTargetCoin)
   logger.info("GREAT SUCCESS")
   logger.info("--- %s seconds ---" % (time.time() - start_time))
-  logger.info("---  gain %s ---", buyOrderTargetCoin['cummulativeQuoteQty']-orderSell['cummulativeQuoteQty'])
+  logger.info("---  gain %s ---", float(buyOrderTargetCoin['cummulativeQuoteQty'])-float(orderSell['cummulativeQuoteQty']))
 
 
 if __name__ == "__main__":
