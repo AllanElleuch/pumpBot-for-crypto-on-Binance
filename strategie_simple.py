@@ -17,10 +17,13 @@ TIMER_SLEEP_BEFORE_CASH_OUT = 20
 import time
 
 
-async def make_order_take_profit_from_order_async(client, buyOrderTargetCoin, mult, roundedBalanceTargetCoinMultiplayer2,start_time):
-  order = client.make_order_take_profit_from_order(order=buyOrderTargetCoin,multiplayer=mult,balanceTargetCoin=roundedBalanceTargetCoinMultiplayer2)
+async def make_order_take_profit_from_order_async(client, buyOrderTargetCoin, mult,multloss,multlosslimit, roundedBalanceTargetCoinMultiplayer2,start_time):
+  #order = client.make_order_take_profit_from_order(order=buyOrderTargetCoin,multiplayer=mult,balanceTargetCoin=roundedBalanceTargetCoinMultiplayer2)
+  order = client.make_order_oco_from_order(order=buyOrderTargetCoin,multiplayertakeProfit=mult,multiplayerStopLoss=multloss,multiplayerStopLossLimit=multlosslimit,balanceTargetCoin=roundedBalanceTargetCoinMultiplayer2)
+
   logger.info("--- ORDER make_order_take_profit_from_order_async  %s seconds ---" % (time.time() - start_time))
   return order
+
 def simple_strategy(client: BinanceRestAPI,symbolTargetCoin:str, quantityInBTCToSpend: float, allIn=False):
   start_time = time.time()
 
@@ -66,7 +69,11 @@ def simple_strategy(client: BinanceRestAPI,symbolTargetCoin:str, quantityInBTCTo
   #priceStop = priceStopFormat.format(computedStop)
 
   # TAKE PROFIT
-  roundedBalanceTargetCoinMultiplayer1 = client.round_coin_to_step(pairCrypto=pairInBTCOfTargetCoin,quantity=balanceTargetCoin*0.5)
+  takeProfit = 1.2
+  stopLoss = 0.9
+  stopLimit = 0.8
+
+  roundedBalanceTargetCoinMultiplayer1 = client.round_coin_to_step(pairCrypto=pairInBTCOfTargetCoin,quantity=balanceTargetCoin)
 
   roundedBalanceTargetCoinMultiplayer2 = client.round_coin_to_step(pairCrypto=pairInBTCOfTargetCoin,quantity=balanceTargetCoin*0.25)
 
@@ -76,9 +83,9 @@ def simple_strategy(client: BinanceRestAPI,symbolTargetCoin:str, quantityInBTCTo
   #   listOfOrder.append(takeProfitOrder)
   #   takeProfitOrder =
   #   listOfOrder.append(takeProfitOrder)
-  t1 = threading.Thread(target=asyncio.run, args=(make_order_take_profit_from_order_async(client,buyOrderTargetCoin,3,roundedBalanceTargetCoinMultiplayer1 ,start_time), ))
-  t2 = threading.Thread(target=asyncio.run, args=(make_order_take_profit_from_order_async(client,buyOrderTargetCoin,3.5,roundedBalanceTargetCoinMultiplayer2 ,start_time), ))
-  t3 = threading.Thread(target=asyncio.run, args=(make_order_take_profit_from_order_async(client,buyOrderTargetCoin,4,balanceTargetCoin-roundedBalanceTargetCoinMultiplayer1-roundedBalanceTargetCoinMultiplayer2 ,start_time), ))
+  t1 = threading.Thread(target=asyncio.run, args=(make_order_take_profit_from_order_async(client,buyOrderTargetCoin,takeProfit,stopLoss,stopLimit,roundedBalanceTargetCoinMultiplayer1 ,start_time), ))
+  # t2 = threading.Thread(target=asyncio.run, args=(make_order_take_profit_from_order_async(client,buyOrderTargetCoin,3.5,roundedBalanceTargetCoinMultiplayer2 ,start_time), ))
+  # t3 = threading.Thread(target=asyncio.run, args=(make_order_take_profit_from_order_async(client,buyOrderTargetCoin,4,balanceTargetCoin-roundedBalanceTargetCoinMultiplayer1-roundedBalanceTargetCoinMultiplayer2 ,start_time), ))
   #t2 = threading.Thread(target=asyncio.run, args=(something_async(client, pairCrypto=pairInBTCOfTargetCoin,quantity=balanceTargetCoin-roundedBalanceTargetCoinMultiplayer1-roundedBalanceTargetCoinMultiplayer2,symbol_info=symbol_info), ))
   #t3 = threading.Thread(target=asyncio.run, args=(something_async(client, pairCrypto=pairInBTCOfTargetCoin,quantity=balanceTargetCoin-roundedBalanceTargetCoinMultiplayer1-roundedBalanceTargetCoinMultiplayer2,symbol_info=symbol_info), ))
 
@@ -88,11 +95,11 @@ def simple_strategy(client: BinanceRestAPI,symbolTargetCoin:str, quantityInBTCTo
   # t3 = threading.Thread(target=asyncio.run, args=(client.make_order_take_profit_from_order_async(order=buyOrderTargetCoin,multiplayer=4,targetCoinPrecision=targetCoinPrecision,balanceTargetCoin=balanceTargetCoin-roundedBalanceTargetCoinMultiplayer1-roundedBalanceTargetCoinMultiplayer2)), )
 
   t1.start()
-  t2.start()
-  t3.start()
+  # t2.start()
+  # t3.start()
   t1.join()
-  t2.join()
-  t3.join()
+  # t2.join()
+  # t3.join()
 
   logger.info("--- ORDER TAKE PROFIT IN  %s seconds ---" % (time.time() - start_time))
 

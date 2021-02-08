@@ -19,5 +19,3 @@ with open('config-binance.json') as json_data:
 binanceRestAPI =  BinanceRestAPI()
 logger.info('asset in account: %s', binanceRestAPI.get_balance("XVG"))
 logger.info('btc to all in ?: %s', binanceRestAPI.get_balance_free_btc())
-
-

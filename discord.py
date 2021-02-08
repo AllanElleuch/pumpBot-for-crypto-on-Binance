@@ -84,7 +84,7 @@ def listenWebsiteForCoin():
           hasBeenFound = True
           print("Coin "+word)
           #makeMove(word, 0.00032, False)# 0.540 # 0,0013
-          simple_strategy(client=binanceRestAPI, symbolTargetCoin=word,quantityInBTCToSpend="0.00055",allIn=True)
+          simple_strategy(client=binanceRestAPI, symbolTargetCoin=word,quantityInBTCToSpend="0.00055",allIn=False)
 
           break
           #return word

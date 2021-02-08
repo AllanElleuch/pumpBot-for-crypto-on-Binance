@@ -17,3 +17,4 @@ if __name__ == "__main__":
   asset = sys.stdin.readline()
   asset = str(asset).upper().replace('\n', '')
   simple_strategy(client=binanceRestAPI, symbolTargetCoin=asset,quantityInBTCToSpend=0.0002,allIn=False) #0.265
+
