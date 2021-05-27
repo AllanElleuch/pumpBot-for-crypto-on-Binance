@@ -8,6 +8,8 @@ Edit the file `config-binance.json` with your binance api key
 
 Run `main.py` and enter the Coin you want to all in (i.e : 'XVG' for all in XVGBTC)
 
+You cal also use `discord.py` to scrap a discord channel and buy a coin as soon as the coin name for a pump is released.
+
 ## Architecture
 
 | File              | Description                                               |
