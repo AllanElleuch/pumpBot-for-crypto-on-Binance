@@ -1,5 +1,7 @@
 # MoonBot
 
+This is command line python bot to perform Pump & Dump on the Binance Market. Since the last surge of crypto in January 2021 this phenomenum came back and we took an interest into diving into it.
+
 ## Quick Start
 
 Edit the file `config-binance.json` with your binance api key 
@@ -20,7 +22,7 @@ You cal also use `discord.py` to scrap a discord channel and buy a coin as soon 
 
 ## Evolution
 
-The bot has been completely rewriten in javascript, react and electron to make a desktop application. And has been made with 5 other collaborators. A license system as also be put in place to restrict the use of the bot. You can find a video of the bot here [Youtube Link](https://www.youtube.com/watch?v=1JjoRWwkdgI)
+The bot has been completely rewriten in javascript, react and electron to make a desktop application. And has been made with 5 other collaborators. A license system as also be put in place to restrict the use of the bot. You can find a video of the bot here [Youtube Link](https://www.youtube.com/watch?v=1JjoRWwkdgI). The source code is available for review on request only.
 
 Functionallities:
 - Enter into a pump manually
